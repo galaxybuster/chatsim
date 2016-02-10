@@ -5,21 +5,37 @@
 		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 		<script>
 			$(function() {
-				full = "this string is gonna be typed instead";
+				full = [];
+				full[0] = "this string is gonna be typed instead";
+				full[1] = "each time you press enter, and the text is complete...";
+				full[2] = "it will add your message to the chat log.";
+				full[3] = "you're only talking to yourself, though.";
 				pos = 0;
+				cur = 0;
 				$('#txt').on('keypress', function(e) {
 					e.preventDefault();
 					if (e.keyCode == 13) { // enter
-						// push it to console or something
+						v = $('#txt').val();
+						if (v === full[cur]) {
+							push(v);
+							$('#txt').val("");
+							cur++;
+							pos = 0;
+						}
+						
 					} else {
 						console.log('heh');
 						$('#txt').val("");
 						pos++;
-						$('#txt').val(full.substring(0, pos));
+						$('#txt').val(full[cur].substring(0, pos));
 						
 					}
 				});
 			});
+
+			function push(msg) {
+				$('#console').append('<li>' + msg + '</li>')
+			}
 		</script>
 
 		<style>
@@ -29,6 +45,9 @@
 		</style>
 	</head>
 	<body>
-		<input id="txt" type="text" />
+		<ul id="console">
+			
+		</ul>
+		<input id="txt" type="text" placeholder="type your message..." />
 	</body>
 </html>
