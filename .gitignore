@@ -31,3 +31,14 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+
+
+# project stuff
+design/*
+*.sublime-project
+*.sublime-workspace
+*.sublime-syntax
+
+.DS_Store
+Thumbs.db

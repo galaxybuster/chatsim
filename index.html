@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>heh</title>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script>
+			$(function() {
+				full = "this string is gonna be typed instead";
+				pos = 0;
+				$('#txt').on('keypress', function(e) {
+					e.preventDefault();
+					if (e.keyCode == 13) { // enter
+						// push it to console or something
+					} else {
+						console.log('heh');
+						$('#txt').val("");
+						pos++;
+						$('#txt').val(full.substring(0, pos));
+						
+					}
+				});
+			});
+		</script>
+
+		<style>
+			#txt {
+				width:400px;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="txt" type="text" />
+	</body>
+</html>
