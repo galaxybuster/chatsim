@@ -1,5 +1,5 @@
 [n]Theseus
-[p]Partner message without extra parameters will show instantly after user message is sent
-[u]This is a user message with no read notice
-[u 2]User mesbeen marked read
-[p 5]Partner message with a number denotes that many seconds of delay
+[u 3]i was wondering if itd be too much trouble for you to meet me at the library this thursday? im off that day and i peeked at your schedule and so are you...!
+[p 4]Sorry new phone whos this?
+[u 2]you know : )
+[u 2]who else are you meeting with outside of work though? i thought it was just me...

@@ -87,7 +87,7 @@ $(function() {
 	$('#txt').on('keypress', function(e) {
 		// prevent characters from showing
 		e.preventDefault();
-
+		
 		// if enter was pressed...
 		if (e.keyCode == 13) {
 			// check that the user has finished typing the complete message
@@ -119,11 +119,11 @@ $(function() {
 				sim(cur + 1);
 			}
 		} else {
-			console.log('heh');
 			$('#txt').val("");
 			pos++;
 			$('#txt').val(line.substring(0, pos));
 		}
+		$('#txt').scrollLeft(10000);
 	});
 });
 
