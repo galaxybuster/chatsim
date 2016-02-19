@@ -1,15 +1,24 @@
 $(function() {
-
+	// load the script file
+	var script = [];
+	$.get("script.txt", function(data) {
+		script = data.split("\n");
+	}).done(function() {
+		console.log(script);
+		sim(0);
+	});
+	
 	// Rather than using AJAX to load the file and explode into an array, we will start with an array for the sake of this demo
-	script = [];
+	/*
 	script[0] = "[n]Theseus";
 	script[1] = "[p]Partner message without extra parameters will show instantly after user message is sent";
 	script[2] = "[u]This is a user message with no read notice";
 	script[3] = "[u 2]User mesbeen marked read";
-	script[4] = "[p 5]Partner message with a number denotes that many seconds of delay";
+	script[4] = "[p 5]Partner message with a number denotes that many seconds of delay";*/
+
+	// some variables for typing, delay, desired text
 	pos = 0;
 	cur = 0;
-
 	delay = 0;
 	line = "";
 
@@ -20,7 +29,7 @@ $(function() {
 		// terminate if end of script
 		if (i >= script.length) return 0;
 
-		matches = /\[([A-Za-z0-9])[ ]?([0-9]+)?\]([A-Za-z0-9 ]*)/g.exec(script[i]);
+		matches = /\[([A-Za-z0-9])[ ]?([0-9]+)?\](.*)/g.exec(script[i]);
 		//console.log(matches);
 		switch (matches[1]) {
 			case "n":
@@ -72,7 +81,7 @@ $(function() {
 			break;
 		}
 	}
-	sim(0); // start the script at position 0
+	//sim(0); // start the script at position 0
 
 	// USER TYPING
 	$('#txt').on('keypress', function(e) {

@@ -1,0 +1,5 @@
+[n]Theseus
+[p]Partner message without extra parameters will show instantly after user message is sent
+[u]This is a user message with no read notice
+[u 2]User mesbeen marked read
+[p 5]Partner message with a number denotes that many seconds of delay
