@@ -2,52 +2,33 @@
 <html>
 	<head>
 		<title>heh</title>
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-		<script>
-			$(function() {
-				full = [];
-				full[0] = "this string is gonna be typed instead";
-				full[1] = "each time you press enter, and the text is complete...";
-				full[2] = "it will add your message to the chat log.";
-				full[3] = "you're only talking to yourself, though.";
-				pos = 0;
-				cur = 0;
-				$('#txt').on('keypress', function(e) {
-					e.preventDefault();
-					if (e.keyCode == 13) { // enter
-						v = $('#txt').val();
-						if (v === full[cur]) {
-							push(v);
-							$('#txt').val("");
-							cur++;
-							pos = 0;
-						}
-						
-					} else {
-						console.log('heh');
-						$('#txt').val("");
-						pos++;
-						$('#txt').val(full[cur].substring(0, pos));
-						
-					}
-				});
-			});
-
-			function push(msg) {
-				$('#console').append('<li>' + msg + '</li>')
-			}
-		</script>
-
-		<style>
-			#txt {
-				width:400px;
-			}
-		</style>
+		<script src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/timeline.js"></script>
+		<link type="text/css" rel="stylesheet" href="css/styles.css" />
 	</head>
 	<body>
-		<ul id="console">
-			
-		</ul>
-		<input id="txt" type="text" placeholder="type your message..." />
+		<div id="container">
+			<div id="console">
+				<div class="msg msg-partner">
+					<p class="msg-txt">Message content goes here...</p>
+				</div>
+				<div class="msg msg-user">
+					<p class="msg-txt">Message content goes here...</p>
+					<span class="msg-read">read 00:00</span>
+				</div>
+				<div class="msg msg-partner">
+					<p class="msg-txt">Message content goes here...</p>
+				</div>
+				<div class="msg msg-user">
+					<p class="msg-txt">Message content goes here...</p>
+					<span class="msg-read">read 00:00</span>
+				</div>
+				<div class="msg msg-user">
+					<p class="msg-txt">Message content goes here...</p>
+					<span class="msg-read">read 00:00</span>
+				</div>
+			</div>
+			<input id="txt" type="text" placeholder="type your message..." />
+		</div>
 	</body>
 </html>
