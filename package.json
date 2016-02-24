@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/galaxybuster/chatsim#readme",
   "dependencies" : {
-    "express" : "latest"
+      "express" : "latest",
+    "passport" : "latest"
   }
 }
