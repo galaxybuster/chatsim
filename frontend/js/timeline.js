@@ -8,13 +8,9 @@ $(function() {
 		sim(0);
 	});
 	
-	// Rather than using AJAX to load the file and explode into an array, we will start with an array for the sake of this demo
-	/*
-	script[0] = "[n]Theseus";
-	script[1] = "[p]Partner message without extra parameters will show instantly after user message is sent";
-	script[2] = "[u]This is a user message with no read notice";
-	script[3] = "[u 2]User mesbeen marked read";
-	script[4] = "[p 5]Partner message with a number denotes that many seconds of delay";*/
+	// load up those SFX (sorry web purists)
+	var sndNewMsg = new Audio('sounds/sndNew.wav');
+	var sndMsgSent = new Audio('sounds/sndSent.wav');
 
 	// some variables for typing, delay, desired text
 	pos = 0;
@@ -41,11 +37,13 @@ $(function() {
 			break;
 
 			case "p":
+				
 				// check for delay
 				if (matches[2]) {
 					p = function() {
 						push(matches[3], false);
 						sim(i+1);
+						sndNewMsg.play();
 					}
 					setTimeout(p, matches[2] * 1000);
 					
@@ -66,6 +64,8 @@ $(function() {
 
 				// enable the textbox
 				$('#txt').prop('disabled', false);
+				// focus the textbox
+				$('#txt').focus();
 				// set the full line of text to be typed
 				line = matches[3];
 				// read delay
@@ -81,7 +81,7 @@ $(function() {
 			break;
 		}
 	}
-	//sim(0); // start the script at position 0
+
 
 	// USER TYPING
 	$('#txt').on('keypress', function(e) {
@@ -93,6 +93,7 @@ $(function() {
 			// check that the user has finished typing the complete message
 			v = $('#txt').val();
 			if (v === line) {
+				sndMsgSent.play();
 				// put a message in the log
 				n = push(v, true);
 				// erase input
@@ -108,11 +109,14 @@ $(function() {
 				if (delay) {
 					d = function() {
 						t = new Date();
-						timestamp = t.getHours() + ":" + t.getMinutes();
+						h = t.getHours() < 10?'0'+t.getHours():t.getHours();
+						m = t.getMinutes() < 10?'0'+t.getMinutes():t.getMinutes();
+						timestamp = h + ":" + m;
 						n.children('.msg-read').text("read "+timestamp);
 						console.log("read");
 					}
 					setTimeout(d, delay*1000);
+					
 				}
 
 				// jack in to sim function at advanced position
@@ -120,12 +124,33 @@ $(function() {
 			}
 		} else {
 			$('#txt').val("");
-			pos++;
+			pos+=2;
 			$('#txt').val(line.substring(0, pos));
 		}
 		$('#txt').scrollLeft(10000);
 	});
+
+	// clickable send
+	$("#b-send").click(function() {
+		var e = jQuery.Event("keypress");
+		e.keyCode = 13; // # Some key code value
+		$("#txt").trigger(e);
+	});
+
+	$('#container').center();
+	$(window).resize(function() {
+		$('#container').center();	
+	});
 });
+
+jQuery.fn.center = function () {
+	console.log("centering");
+	this.css("position","absolute");
+	par = this.parent();
+	this.css("top", Math.max(0, ((par.height() - $(this).outerHeight()) / 2)));
+	this.css("left", Math.max(0, ((par.width() - $(this).outerWidth()) / 2)));
+	return this;
+}
 
 function push(msg, isUser) {
 	cnsl = $('#console');
@@ -134,8 +159,10 @@ function push(msg, isUser) {
 	} else {
 		newmsg = $('<div class="msg msg-partner"><p>' + msg + '</p></div>');
 	}
+	newmsg.hide();
 	cnsl.append(newmsg);
-	cnsl.animate({scrollTop: newmsg.position().top}, 750);
+	newmsg.fadeIn(100);
+	cnsl.animate({scrollTop: newmsg.position().top+1500}, 2000);
 
 	return newmsg;
 }
